@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дата через N днів</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        #current-date-time {
+            font-size: 1.5em;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        #future-date {
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Теперішня дата та час:</h1>
+    <p id="current-date-time"></p>
+
+    <h2>Визначити дату</h2>
+
+    <!-- Додано можливість вибору дати -->
+    <label for="selected-date">Виберіть дату:</label>
+    <input type="date" id="selected-date">
+    
+    <label for="days">Введіть кількість днів:</label>
+    <input type="number" id="days" value="60">
+    
+    <button onclick="calculateFutureDate()">Обчислити</button>
+    
+    <p id="future-date"></p>
+
+    <script>
+        // Функція для оновлення поточного часу
+        function updateCurrentTime() {
+            const currentDate = new Date();
+            const currentDateTime = currentDate.toLocaleString('uk-UA');
+            document.getElementById('current-date-time').innerText = `Поточний час: ${currentDateTime}`;
+        }
+
+        // Функція для обчислення майбутньої дати
+        function calculateFutureDate() {
+            let selectedDate = document.getElementById('selected-date').value;
+            const daysInput = document.getElementById('days').value;
+
+            // Якщо дата не вибрана, використовуємо поточну дату
+            if (selectedDate === "") {
+                selectedDate = new Date();
+            } else {
+                selectedDate = new Date(selectedDate);
+            }
+
+            // Додаємо кількість днів до вибраної дати
+            selectedDate.setDate(selectedDate.getDate() + parseInt(daysInput));
+
+            const futureDate = selectedDate.toLocaleDateString('uk-UA');
+            document.getElementById('future-date').innerText = `Дата через ${daysInput} днів: ${futureDate}`;
+        }
+
+        // Оновлюємо час кожну секунду
+        setInterval(updateCurrentTime, 1000);
+
+        // Спочатку показуємо поточний час
+        updateCurrentTime();
+    </script>
+
+</body>
+</html>
