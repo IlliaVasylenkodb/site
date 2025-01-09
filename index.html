@@ -88,8 +88,8 @@
                 selectedDate = new Date(selectedDate);
             }
 
-            // Додаємо кількість днів до вибраної дати
-            selectedDate.setDate(selectedDate.getDate() + parseInt(daysInput));
+            // Додаємо кількість днів до вибраної дати, враховуючи, що перший день включно
+            selectedDate.setDate(selectedDate.getDate() + parseInt(daysInput) - 1); // -1 щоб включити перший день
 
             const futureDate = selectedDate.toLocaleDateString('uk-UA');
             document.getElementById('future-date').innerText = `Дата через ${daysInput} днів: ${futureDate}`;
